@@ -94,6 +94,7 @@ curl -Method PATCH https://www.carboninterface.com/api/v1/carbon_ledger/programs
 ```
 
 Example:
+
 ![alt text](PATCH_Response.png)
 
 ---
@@ -119,7 +120,7 @@ Using wrong method:
 
 Status: 401 Unauthorized -> due to a bad token
 
-![alt text](image.png)
+![alt text](Unauth401.png)
 
 Status: 404
 
