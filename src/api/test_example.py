@@ -11,10 +11,17 @@ class TestExample:
         Setup class
         :return:
         """
+        API_KEY = "3Zo9k91XvEs4XgF97Ulwg"
         LOGGER.info('Setup class')
+        cls.header_api = {
+            "Authorization": "Bearer {}".format(API_KEY)
+        }
+        LOGGER.debug("Header API: %s", cls.header_api)
 
     def test_one(self):
         LOGGER.info('Test one')
+        #assert
+
 
     def test_two(self):
         LOGGER.info('Test two')
