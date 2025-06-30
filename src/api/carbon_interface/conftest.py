@@ -41,32 +41,3 @@ def test_log_name(request):
         LOGGER.info(f"End test '{request.node.name}'")
 
     request.addfinalizer(fin)
-
-
-# def delete_card_profile(card_id):
-#     LOGGER.info("Delete project fixture (yield)")
-#     url_delete_card_profiles = f"{url_base}carbon_ledger/programs/{program_uuid}/card_profiles/{card_id}"
-#
-#     response =requests.delete(
-#         url=url_delete_card_profiles,
-#         headers=headers,
-#     )
-#
-#     LOGGER.debug("Status Code: %s", str(response.status_code))
-#     if response.status_code == 204:
-#         LOGGER.debug("Project deleted")
-
-
-# def pytest_adoption(parser):
-#     parser.adoption(
-#         "--env",
-#         action="store",
-#         default="dev",
-#         help="Environment where the tests are executed",
-#     )
-#     parser.adoption(
-#         "--browser",
-#         action="store",
-#         default="edge",
-#         help="Browser where the UI tests are executed",
-#     )

@@ -1,8 +1,8 @@
 {
-    "body": {
+    "expected_body": {
         "message": "'1' is not a valid transportation_method"
     },
-    "status_code": 422,
+    "expected_status": 422,
     "headers": {
         "Date": "Wed, 18 Jun 2025 17:31:44 GMT",
         "Content-Type": "application/json; charset=utf-8",

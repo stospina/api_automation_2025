@@ -9,3 +9,6 @@
 logs
 
 .env
+reports
+
+allure-report

@@ -3,8 +3,8 @@ import logging
 import random
 import jsonschema
 import pytest
-from src.api.schemas.electricity_estimate_schema import electricity_estimate_schema
-from src.api.schemas.flight_estimate_schema import flight_estimate_schema
+from src.api.carbon_interface.schemas.electricity_estimate_schema import electricity_estimate_schema
+from src.api.carbon_interface.schemas.flight_estimate_schema import flight_estimate_schema
 from helper.rest_client import RestClient
 from helper.validate_response import ValidateResponse
 from config.config import url_base, headers

@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 
 import requests
 
@@ -128,7 +129,13 @@ class TestEstimates:
             body=payload
         )
         LOGGER.debug("Status Code: %s", str(response["status_code"]))
-        self.validate.validate_response(response,"negative_create_card")
+        name = "negative_create_card"
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        parent_dir = os.path.dirname(base_dir)
+        file_path = os.path.join(parent_dir, f"input_json", f"{name}.json")
+        LOGGER.debug(file_path)
+        expected_response = self.validate.read_input_data(file_path)
+        self.validate.validate_response(response,expected_response)
         assert response["status_code"] == 422
 
     @classmethod

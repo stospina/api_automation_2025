@@ -9,11 +9,12 @@ class RestClient:
     def __init__(self):
         self.session = requests.Session()
 
-    def send_request(self, method_name, url, headers, body=None):
+    def send_request(self, method_name, url, headers, body=None, params=None):
         response_updated = {}
         methods = {
             "GET": self.session.get,
             "POST": self.session.post,
+            "PUT": self.session.put,
             "DELETE": self.session.delete,
             "PATCH": self.session.patch,
         }
@@ -21,7 +22,7 @@ class RestClient:
         try:
             # response = requests.post(url=f"{url_base}projects", headers=headers, json=project_body)
 
-            response = methods[method_name](url=url, headers=headers, json=body)
+            response = methods[method_name](url=url, headers=headers, json=body, params=params)
             response.raise_for_status()
             response_updated["body"] = (
                 response.json() if response.text else {"message": "No body content"}
