@@ -15,6 +15,8 @@ LOGGER = get_logger(__name__, logging.DEBUG)
 
 @allure.story("End to End")
 @allure.parent_suite("End to End")
+@allure.label("Tester: Steven Ospina")
+@allure.title("Create a Task: adding to a project")
 @pytest.mark.usefixtures("test_log_name")
 class TestE2e:
 
