@@ -66,14 +66,14 @@ def after_scenario(context, scenario):
     """
     LOGGER.debug('Ending scenario: "%s"', scenario.name)
     if "clean" in scenario.tags:
-        for project_id in context.project_list:
-            url_delete_project = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{project_id}"
-            response_archived = context.rest_client.send_request(
-                "PUT", url=url_delete_project, headers=context.headers, body={"archived":True}
-            )
+        #for project_id in context.project_list:
+        url_delete_project = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{context.project_id}"
+        response_archived = context.rest_client.send_request(
+            "PUT", url=url_delete_project, headers=context.headers, body={"archived":True}
+        )
 
-            response = context.rest_client.send_request(
-                "DELETE", url=url_delete_project, headers=context.headers
-            )
-            if response["status_code"] == 200:
-                LOGGER.debug("Project %s deleted", project_id)
+        response = context.rest_client.send_request(
+            "DELETE", url=url_delete_project, headers=context.headers
+        )
+        if response["status_code"] == 200:
+            LOGGER.debug("Project %s deleted", context.project_id)
