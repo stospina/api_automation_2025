@@ -60,7 +60,7 @@ def clean_client(client_id):
 
     LOGGER.debug("Status Code: %s", str(response.status_code))
     if response.status_code == 200:
-        LOGGER.debug("Project deleted")
+        LOGGER.debug("Client deleted")
 
 @pytest.fixture
 def create_client(clients_post_payload):

@@ -1,6 +1,7 @@
-@Clockify @projects
-@allure.label.owner:Steven_OSpina
-@allure.label.epic:Projects
+@Clockify @projects_feature
+@allure.label.owner:Steven_Ospina
+@allure.label.epic:BDD
+@allure.label.feature:Projects
 Feature:  Suite for projects endpoint from Clockify API
 
   @acceptance @project_id @clean
@@ -9,7 +10,7 @@ Feature:  Suite for projects endpoint from Clockify API
     Then the status code is 200
 
 
-  @functional @acceptance @clean
+  @functional @acceptance @Projects @clean
   Scenario: Scenario to create a Project
     When user calls "POST" method to "create" "projects" endpoint using json
     """

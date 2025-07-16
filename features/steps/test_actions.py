@@ -40,6 +40,9 @@ def call_endpoints_with_json(context, method, action, endpoint_name):
     if action == "update":
         feature_id = get_feature_id(endpoint_name, context)
         url_create_feature = f"{context.url_clockify}workspaces/{context.workspace_id}/{endpoint_name}/{feature_id}"
+    if endpoint_name == "tasks":
+        url_create_feature = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{context.project_id}/{endpoint_name}"
+
     body = json.loads(context.text)
 
     body_updated = update_json_data(context, body)
@@ -49,9 +52,11 @@ def call_endpoints_with_json(context, method, action, endpoint_name):
     )
     # add to list of projects for clean up
     LOGGER.debug("Response %s", response)
-    if action == "create" and "id" in response["body"]:
+    if action == "create" and "id" in response["body"] and endpoint_name =="projects":
         #append_to_feature_list(endpoint_name, context, response["body"]["id"])
         context.project_id = response["body"]["id"]
+    if action == "create" and "id" in response["body"] and endpoint_name =="clients":
+        context.client_id = response["body"]["id"]
     LOGGER.debug(response)
     # store status code in context
     context.status_code = response["status_code"]

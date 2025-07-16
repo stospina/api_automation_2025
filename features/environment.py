@@ -31,6 +31,16 @@ def before_feature(context, feature):
     """
     LOGGER.debug("Before feature")
 
+
+def client_payload():
+    return {
+        "address": f"{Faker().address()}",
+        "email": f"{Faker().email()}",
+        "name": f"{Faker().name()}",
+        "note": f"{Faker().sentence(4)}"
+    }
+
+
 def before_scenario(context, scenario):
     if "project_id" in scenario.tags:
         LOGGER.info("create project fixture")
@@ -47,6 +57,19 @@ def before_scenario(context, scenario):
         # get id project
         context.project_id = response["body"]["id"]
         #context.project_list.append(context.project_id)
+        LOGGER.debug("Project ID: %s", response["body"]["id"])
+    if "client_id" in scenario.tags:
+        LOGGER.info("create client fixture")
+        client_body = client_payload()
+        url_post_clients = f"{url_clockify}workspaces/{workspace_id}/clients"
+        # call endpoint using requests
+        response = context.rest_client.send_request(
+            "POST",
+            url=url_post_clients, headers=headers_clockify, body=client_body
+        )
+        # get id client
+        context.client_id = response["body"]["id"]
+        # context.project_list.append(context.project_id)
         LOGGER.debug("Project ID: %s", response["body"]["id"])
 
 
@@ -67,13 +90,24 @@ def after_scenario(context, scenario):
     LOGGER.debug('Ending scenario: "%s"', scenario.name)
     if "clean" in scenario.tags:
         #for project_id in context.project_list:
-        url_delete_project = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{context.project_id}"
+        if hasattr(context, "project_id") or "Projects" in scenario.tags:
+            url_delete_entity = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{context.project_id}"
+            context.entity_id = context.project_id
+        # elif hasattr(context, "task_id"):
+        #     url_delete_entity = f"{context.url_clockify}workspaces/{context.workspace_id}/projects/{context.project_id}/tasks/{context.task_id}"
+        #     context.entity_id = context.task_id
+
+        if hasattr(context, "client_id") or "Clients" in scenario.tags:
+            url_delete_entity = f"{context.url_clockify}workspaces/{context.workspace_id}/clients/{context.client_id}"
+            context.entity_id = context.client_id
+
         response_archived = context.rest_client.send_request(
-            "PUT", url=url_delete_project, headers=context.headers, body={"archived":True}
+            "PUT", url=url_delete_entity, headers=context.headers, body={"archived":True}
         )
 
         response = context.rest_client.send_request(
-            "DELETE", url=url_delete_project, headers=context.headers
+            "DELETE", url=url_delete_entity, headers=context.headers
         )
         if response["status_code"] == 200:
-            LOGGER.debug("Project %s deleted", context.project_id)
+            LOGGER.debug("Entity %s deleted", context.entity_id)
+
