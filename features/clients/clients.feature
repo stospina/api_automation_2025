@@ -1,4 +1,5 @@
 @Clockify @Client_feature
+@allure.suite:Clients
 @allure.label.owner:Steven_Ospina
 @allure.label.epic:BDD
 @allure.label.feature:Clients

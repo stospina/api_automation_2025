@@ -7,9 +7,14 @@ pipeline {
                 bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python --version && pip install -r requirements.txt'
             }
         }
-        stage('Run Python Scripts') {
+        stage('Run Pytest Clockify API') {
             steps {
                 bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python -m pytest src/api/clockify -vs --alluredir=reports\\allure-results'
+            }
+        }
+        stage('un Pytest Carbon Interface API') {
+            steps {
+                bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python -m pytest src/api/carbon_interface -vs --alluredir=reports\\allure-results'
             }
         }
         stage('Run BDD tests') {

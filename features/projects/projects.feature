@@ -1,4 +1,5 @@
 @Clockify @projects_feature
+@allure.suite:Projects
 @allure.label.owner:Steven_Ospina
 @allure.label.epic:BDD
 @allure.label.feature:Projects
