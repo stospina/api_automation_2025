@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup environment') {
+            steps {
+              bat 'python3 --version'
+              bat 'call conda.bat activate api_automation_2025'
+              bat 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Python Scripts') {
+            steps {
+              bat 'call conda.bat activate api_automation_2025'
+              bat 'python3 -m pytest src/api/clockify -vs --alluredir reports//allure-results --md-report --md-report-output md_report.md'
+
+            }
+        }
+        stage('reports') {
+            steps {
+                script {
+                    allure ([
+                        includeProperties: false,
+                        jdk:'',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'reports/allure/allure-results']]
+                    ])
+                 }
+            }
+        }
+//         stage('Send Report to Teams') {
+//             steps {
+//                 withPythonEnv('python3') {
+//                     sh 'python3 web_hook.py'
+//                 }
+//             }
+//         }
+    }
+}
