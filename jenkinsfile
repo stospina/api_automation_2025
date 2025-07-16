@@ -12,7 +12,7 @@ pipeline {
                 bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python -m pytest src/api/clockify -vs --alluredir=reports\\allure-results'
             }
         }
-        stage('un Pytest Carbon Interface API') {
+        stage('Run Pytest Carbon Interface API') {
             steps {
                 bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python -m pytest src/api/carbon_interface -vs --alluredir=reports\\allure-results'
             }
