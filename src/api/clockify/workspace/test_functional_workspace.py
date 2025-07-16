@@ -1,5 +1,9 @@
 import logging
 import json
+
+import allure
+import pytest
+
 from config.config import url_clockify, headers_clockify
 from helper.rest_client import RestClient
 from helper.validate_response import ValidateResponse
@@ -7,6 +11,7 @@ from utils.logger import get_logger
 
 LOGGER = get_logger(__name__, logging.DEBUG)
 
+@allure.story("Workspaces")
 class TestEstimates:
 
     @classmethod
@@ -18,6 +23,7 @@ class TestEstimates:
         cls.rest_client = RestClient()
         cls.validate = ValidateResponse()
 
+    @pytest.mark.smoke
     def test_get_all_workspaces(self):
         """
         Get all the workspaces
