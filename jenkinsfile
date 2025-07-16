@@ -4,19 +4,12 @@ pipeline {
     stages {
         stage('Setup environment') {
             steps {
-                bat """
-                  call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && ^
-                  python --version && ^
-                  pip install -r requirements.txt'
-                """
+                bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python --version && pip install -r requirements.txt'
             }
         }
         stage('Run Python Scripts') {
             steps {
-              bat """
-              call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && ^
-              python -m pytest src/api/clockify -vs --alluredir=reports\\allure-results --md-report --md-report-output md_report.md
-              """
+                bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025 && python -m pytest src/api/clockify -vs --alluredir=reports\\allure-results --md-report --md-report-output md_report.md'
             }
         }
         stage('reports') {
