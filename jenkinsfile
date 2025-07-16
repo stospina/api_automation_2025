@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Setup environment') {
             steps {
-              bat 'python3 --version'
+              bat 'python --version'
               bat 'call conda.bat activate api_automation_2025'
               bat 'pip install -r requirements.txt'
             }
