@@ -4,15 +4,16 @@ pipeline {
     stages {
         stage('Setup environment') {
             steps {
+
+              bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025'
               bat 'python --version'
-              bat 'call conda.bat activate api_automation_2025'
               bat 'pip install -r requirements.txt'
             }
         }
         stage('Run Python Scripts') {
             steps {
-              bat 'call conda.bat activate api_automation_2025'
-              bat 'python3 -m pytest src/api/clockify -vs --alluredir reports//allure-results --md-report --md-report-output md_report.md'
+              bat 'call C:\\Users\\Steven.Ospina\\AppData\\Local\\miniconda3\\Scripts\\activate.bat api_automation_2025'
+              bat 'python -m pytest src/api/clockify -vs --alluredir=reports\\allure-results --md-report --md-report-output md_report.md'
 
             }
         }
@@ -24,17 +25,10 @@ pipeline {
                         jdk:'',
                         properties: [],
                         reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'reports/allure/allure-results']]
+                        results: [[path: 'reports/allure-results']]
                     ])
                  }
             }
         }
-//         stage('Send Report to Teams') {
-//             steps {
-//                 withPythonEnv('python3') {
-//                     sh 'python3 web_hook.py'
-//                 }
-//             }
-//         }
     }
 }
